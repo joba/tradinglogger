@@ -1,7 +1,7 @@
 import postgres from "postgres";
 import { TradeLog } from "./definitions";
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+const sql = postgres(process.env.TRADELOGS_POSTGRES_URL!, { ssl: "require" });
 
 const ITEMS_PER_PAGE = 10;
 export async function fetchTradeLogs(query: string, currentPage: number) {

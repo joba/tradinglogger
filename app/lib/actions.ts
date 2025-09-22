@@ -22,7 +22,7 @@ export type StateSell = {
   message?: string | null;
 };
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+const sql = postgres(process.env.TRADELOGS_POSTGRES_URL!, { ssl: "require" });
 
 const FormSchema = z.object({
   id: z.string(),
