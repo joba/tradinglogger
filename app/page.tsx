@@ -1,11 +1,28 @@
-import Image from "next/image";
+import ActiveTrades from "./ui/active-trades";
+import CreateForm from "./ui/create-form";
+import TradeList from "./ui/trade-list";
+import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home(props: {
+  searchParams?: Promise<{
+    query?: string;
+    page?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
   return (
-    <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start p-10">
-      <h1 className="text-4xl sm:text-6xl font-extrabold text-center sm:text-left">
-        Trade Logs
-      </h1>
+    <main className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+      <div className="w-full flex-none md:w-64">
+        <CreateForm />
+      </div>
+      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+        <ActiveTrades />
+        <Suspense key={query + currentPage} fallback={<p>Loading trades...</p>}>
+          <TradeList query={query} currentPage={currentPage} />
+        </Suspense>
+      </div>
     </main>
   );
 }
