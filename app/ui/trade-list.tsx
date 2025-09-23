@@ -5,6 +5,7 @@ import {
   getPercentageChange,
   getPercentageChangeWithSign,
 } from "../lib/utils";
+import ResultBadge from "./result-badge";
 
 export default async function TradeList({
   query,
@@ -17,7 +18,6 @@ export default async function TradeList({
 
   return (
     <div className="mt-6 flow-root">
-      <h3 className="text-lg font-medium">Archived</h3>
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
@@ -89,9 +89,11 @@ export default async function TradeList({
                     {formatDateToLocal(trade.date)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {trade.sell
-                      ? getPercentageChangeWithSign(trade.buy, trade.sell)
-                      : "-"}
+                    {trade.sell ? (
+                      <ResultBadge buy={trade.buy} sell={trade.sell} />
+                    ) : (
+                      "-"
+                    )}
                   </td>
                 </tr>
               ))}

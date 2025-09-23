@@ -14,3 +14,10 @@ export type TradeLog = {
   comment: string;
   date: string; // ISO date string (YYYY-MM-DD)
 };
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};

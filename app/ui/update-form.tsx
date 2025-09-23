@@ -2,10 +2,13 @@
 
 import { useActionState } from "react";
 import { StateSell, updateTradeLog } from "../lib/actions";
+import { TradeLog } from "../lib/definitions";
+import { lusitana } from "./fonts";
+import { Button } from "./button";
 
-export default function UpdateForm({ tradeId }: { tradeId: number }) {
+export default function UpdateForm({ trade }: { trade: TradeLog }) {
   const initialState: StateSell = { message: null, errors: {} };
-  const updateTradeLogWithId = updateTradeLog.bind(null, tradeId);
+  const updateTradeLogWithId = updateTradeLog.bind(null, trade.id);
   const [state, formAction, loading] = useActionState(
     updateTradeLogWithId,
     initialState
@@ -13,21 +16,31 @@ export default function UpdateForm({ tradeId }: { tradeId: number }) {
 
   return (
     <form action={formAction} className="flex flex-col gap-2">
-      <div className="flex flex-row gap-1">
-        <input
-          type="number"
-          className="border border-gray-300 rounded px-3 py-2"
-          name="sell"
-          id="sell"
-          step="any"
+      <div className="flex flex-col gap-1">
+        <label className="flex flex-row justify-between items-center">
+          <span
+            className={`${lusitana.className} text-sm font-medium md:text-base`}
+          >
+            Exit
+          </span>
+          <input
+            type="number"
+            className={`${lusitana.className} border border-gray-300 rounded w-20 text-right`}
+            name="sell"
+            id="sell"
+            step="0.01"
+          />
+        </label>
+        <textarea
+          name="comment"
+          className={`${lusitana.className} border border-gray-300 rounded px-3 py-2`}
+          placeholder="Add a comment (max 255 characters)"
+          maxLength={255}
+          defaultValue={trade.comment || ""}
         />
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded bg-blue-600 px-3 py-1 text-sm text-white disabled:opacity-50"
-        >
+        <Button type="submit" disabled={loading}>
           {loading ? "Updating..." : "Update"}
-        </button>
+        </Button>
       </div>
       <div id="sell-error" aria-live="polite" className="text-red-600">
         {state.errors?.sell && <span>{state.errors.sell?.join(", ")}</span>}

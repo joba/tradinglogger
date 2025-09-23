@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import postgres from "postgres";
 import { z } from "zod";
 import { TradeName } from "./definitions";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 
 export type State = {
   errors?: {
@@ -97,7 +99,6 @@ export async function updateTradeLog(
   const { sell, comment } = validatedFields.data;
   const sellInCents = Math.round(sell * 100);
 
-  console.log(sellInCents, comment);
   try {
     await sql`
       UPDATE trades
@@ -110,5 +111,24 @@ export async function updateTradeLog(
   } catch (error) {
     console.error("Database error:", error);
     throw new Error("Failed to update trade log.");
+  }
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials. Please try again.";
+        default:
+          return "An unexpected error occurred. Please try again later.";
+      }
+    }
+    throw error;
   }
 }
