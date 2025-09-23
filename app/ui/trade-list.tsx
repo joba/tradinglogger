@@ -1,10 +1,5 @@
 import { fetchTradeLogs } from "../lib/data";
-import {
-  formatCurrency,
-  formatDateToLocal,
-  getPercentageChange,
-  getPercentageChangeWithSign,
-} from "../lib/utils";
+import { formatCurrency, formatDateToLocal } from "../lib/utils";
 import ResultBadge from "./result-badge";
 
 export default async function TradeList({
@@ -32,7 +27,6 @@ export default async function TradeList({
                       <p>{trade.asset}</p>
                     </div>
                   </div>
-                  {/* <InvoiceStatus status={trade.status} /> */}
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
@@ -42,8 +36,14 @@ export default async function TradeList({
                     <p className="text-xl font-medium">
                       {trade.sell ? formatCurrency(trade.sell) : "-"}
                     </p>
+
                     <p>{formatDateToLocal(trade.date)}</p>
                   </div>
+                  {trade.sell ? (
+                    <ResultBadge buy={trade.buy} sell={trade.sell} />
+                  ) : (
+                    "-"
+                  )}
                 </div>
               </div>
             ))}
