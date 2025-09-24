@@ -24,7 +24,9 @@ export default async function TradeList({
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      <p>{trade.asset}</p>
+                      <p>
+                        {trade.asset} - {trade.type}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -76,7 +78,9 @@ export default async function TradeList({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <p>{trade.asset}</p>
+                      <p>
+                        {trade.asset} - {trade.type}
+                      </p>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">

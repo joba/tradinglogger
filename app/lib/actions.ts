@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import postgres from "postgres";
 import { z } from "zod";
-import { TradeName } from "./definitions";
+import { TradeName, TradeType } from "./definitions";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
@@ -12,6 +12,7 @@ export type State = {
     asset?: string[];
     buy?: string[];
     comment?: string[];
+    type?: string[];
   };
   message?: string | null;
 };
@@ -31,6 +32,9 @@ const FormSchema = z.object({
   asset: z.enum(TradeName, {
     message: "Select a valid asset",
   }),
+  type: z.enum(TradeType, {
+    message: "Select a valid trade type",
+  }),
   buy: z.coerce.number().min(0, "Buy price must be greater than 0"),
   sell: z.coerce.number().min(0, "Sell price must be greater than 0"),
   comment: z.string().max(255),
@@ -42,6 +46,7 @@ const CreateTradeLog = FormSchema.omit({ id: true, date: true, sell: true });
 export async function createTradeLog(prevState: State, formData: FormData) {
   const validatedFields = CreateTradeLog.safeParse({
     asset: formData.get("asset"),
+    type: formData.get("type"),
     buy: formData.get("buy"),
     comment: formData.get("comment") ?? "",
   });
@@ -53,15 +58,15 @@ export async function createTradeLog(prevState: State, formData: FormData) {
     };
   }
 
-  const { asset, buy, comment } = validatedFields.data;
+  const { asset, buy, comment, type } = validatedFields.data;
   const buyInCents = Math.round(buy * 100);
   const date = new Date().toISOString().split("T")[0];
-  console.log(asset, buyInCents, date, comment);
+  console.log(asset, buyInCents, date, comment, type);
 
   try {
     await sql`
-      INSERT INTO trades (asset, buy, date, comment)
-      VALUES (${asset}, ${buyInCents}, ${date}, ${comment})
+      INSERT INTO trades (asset, buy, date, comment, type)
+      VALUES (${asset}, ${buyInCents}, ${date}, ${comment}, ${type})
     `;
 
     revalidatePath("/");
@@ -75,6 +80,7 @@ export async function createTradeLog(prevState: State, formData: FormData) {
 const UpdateTradeLog = FormSchema.omit({
   id: true,
   asset: true,
+  type: true,
   date: true,
   buy: true,
 });
@@ -83,7 +89,6 @@ export async function updateTradeLog(
   prevState: State,
   formData: FormData
 ) {
-  console.log("POST");
   const validatedFields = UpdateTradeLog.safeParse({
     sell: formData.get("sell"),
     comment: formData.get("comment") ?? "",
