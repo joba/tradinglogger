@@ -1,28 +1,28 @@
 import Link from "next/link";
-import ActiveTrades from "./ui/active-trades";
-import CreateForm from "./ui/create-form";
 import { lusitana } from "./ui/fonts";
-import TradeList from "./ui/trade-list";
-import { Suspense } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import Logo from "./ui/logo";
 
 export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-orange-500 p-4 md:h-52">
-        Trade logger
+      <div
+        className={`flex h-20 shrink-0 items-end rounded-lg bg-primary p-4 md:h-52`}
+      >
+        <Logo size="lg" />
       </div>
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
         <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
           <p
             className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
-            <strong>Welcome to The Trade Logger.</strong> Simple logging of your
-            day trading activity.
+            <strong>Welcome to Trade Logger.</strong> Simple logging of your day
+            trading activity.
           </p>
           <Link
             href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-orange-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-orange-400 md:text-base"
+            className={`flex items-center gap-5 self-start rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-secondary md:text-base`}
           >
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>

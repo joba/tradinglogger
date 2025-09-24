@@ -1,10 +1,10 @@
 "use client";
 
+import { StateSell, updateTradeLog } from "@/app/lib/actions";
+import { TradeLog } from "@/app/lib/definitions";
 import { useActionState } from "react";
-import { StateSell, updateTradeLog } from "../lib/actions";
-import { TradeLog } from "../lib/definitions";
-import { lusitana } from "./fonts";
-import { Button } from "./button";
+import { lusitana } from "../fonts";
+import { Button } from "../button";
 
 export default function UpdateForm({ trade }: { trade: TradeLog }) {
   const initialState: StateSell = { message: null, errors: {} };

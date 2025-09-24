@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import "./globals.css";
 import { inter } from "./ui/fonts";
 
 export const metadata: Metadata = {
-  title: "Trade Logs",
+  title: "Trade Logger",
   description: "Log your day trades with ease.",
 };
 

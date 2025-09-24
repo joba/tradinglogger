@@ -1,7 +1,7 @@
-import { fetchActiveTrades } from "../lib/data";
+import { fetchActiveTrades } from "../../lib/data";
 import { lusitana } from "@/app/ui/fonts";
 import clsx from "clsx";
-import { formatCurrency } from "../lib/utils";
+import { formatCurrency } from "../../lib/utils";
 import UpdateForm from "./update-form";
 
 export default async function ActiveTrades() {

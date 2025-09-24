@@ -66,7 +66,7 @@ export default async function TradeList({
                   Date
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Result
+                  Profit/Loss
                 </th>
               </tr>
             </thead>

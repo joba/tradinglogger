@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { createTradeLog, State } from "../lib/actions";
+import { createTradeLog, State } from "../../lib/actions";
 import { lusitana } from "@/app/ui/fonts";
-import { TradeName, TradeType } from "../lib/definitions";
-import { Button } from "./button";
+import { TradeName, TradeType } from "../../lib/definitions";
+import { Button } from "../button";
 
 export default function CreateForm() {
   const initialState: State = { message: null, errors: {} };
