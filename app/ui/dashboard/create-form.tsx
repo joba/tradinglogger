@@ -71,7 +71,7 @@ export default function CreateForm() {
               type="number"
               name="buy"
               id="buy"
-              step="any"
+              step="0.001"
               className="border border-gray-300 rounded px-3 py-2"
               placeholder="Enter entry price"
             />

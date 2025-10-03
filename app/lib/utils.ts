@@ -1,8 +1,5 @@
 export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString("sv-SE", {
-    style: "currency",
-    currency: "SEK",
-  });
+  return (amount / 100).toFixed(3) + " kr";
 };
 
 export const formatDateToLocal = (
@@ -28,6 +25,6 @@ export const getPercentageChange = (entry: number, exit: number) => {
 export const getPercentageChangeWithSign = (entry: number, exit: number) => {
   const percentageChange = getPercentageChange(entry, exit);
   return percentageChange >= 0
-    ? `+${percentageChange.toFixed(2)}%`
-    : `${percentageChange.toFixed(2)}%`;
+    ? `+${percentageChange.toFixed(3)}%`
+    : `${percentageChange.toFixed(3)}%`;
 };

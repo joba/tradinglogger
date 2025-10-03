@@ -31,7 +31,7 @@ export async function fetchActiveTrades() {
 
 export async function fetchCardData() {
   try {
-    const tradesCountPromise = sql`SELECT COUNT(*) FROM trades`;
+    const tradesCountPromise = sql`SELECT COUNT(*) FROM trades WHERE sell IS NOT NULL`;
     const tradesWinCountPromise = sql`SELECT COUNT(*) FROM trades WHERE sell IS NOT NULL AND buy <= sell`;
     const tradesLossCountPromise = sql`SELECT COUNT(*) FROM trades WHERE sell IS NOT NULL AND buy > sell`;
     const tradeBiggestWinInPercentagePromise = sql`SELECT MAX(((sell - buy) / buy) * 100) AS biggest_win_percentage FROM trades WHERE sell IS NOT NULL AND buy > 0`;

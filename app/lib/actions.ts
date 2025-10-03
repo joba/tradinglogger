@@ -59,7 +59,7 @@ export async function createTradeLog(prevState: State, formData: FormData) {
   }
 
   const { asset, buy, comment, type } = validatedFields.data;
-  const buyInCents = Math.round(buy * 100);
+  const buyInCents = (buy * 100).toFixed(3);
   const date = new Date().toISOString().split("T")[0];
   console.log(asset, buyInCents, date, comment, type);
 
@@ -102,7 +102,7 @@ export async function updateTradeLog(
   }
 
   const { sell, comment } = validatedFields.data;
-  const sellInCents = Math.round(sell * 100);
+  const sellInCents = (sell * 100).toFixed(3);
 
   try {
     await sql`

@@ -28,7 +28,7 @@ export default function UpdateForm({ trade }: { trade: TradeLog }) {
             className={`${lusitana.className} border border-gray-300 rounded w-20 text-right`}
             name="sell"
             id="sell"
-            step="0.01"
+            step="0.001"
           />
         </label>
         <textarea
