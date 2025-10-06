@@ -3,7 +3,7 @@ import { TradeLog } from "./definitions";
 
 const sql = postgres(process.env.TRADELOGS_POSTGRES_URL!, { ssl: "require" });
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 50;
 export async function fetchTradeLogs(query: string, currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
@@ -64,5 +64,18 @@ export async function fetchCardData() {
   } catch (error) {
     console.error("Error fetching card data:", error);
     throw new Error("Failed to fetch card data.");
+  }
+}
+
+export async function fetchTradePages(query: string) {
+  try {
+    const result = await sql<{ count: number }[]>`
+      SELECT COUNT(*) FROM trades WHERE SELL IS NOT NULL AND asset ILIKE ${`%${query}%`}
+    `;
+    const totalCount = Number(result[0]?.count ?? 0);
+    return Math.ceil(totalCount / ITEMS_PER_PAGE);
+  } catch (error) {
+    console.error("Error fetching trade pages:", error);
+    throw new Error("Failed to fetch trade pages.");
   }
 }
