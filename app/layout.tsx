@@ -3,7 +3,7 @@ import "./globals.css";
 import { inter } from "./ui/fonts";
 
 export const metadata: Metadata = {
-  title: "Trade Logger",
+  title: "TradingLogger",
   description: "Log your day trades with ease.",
 };
 

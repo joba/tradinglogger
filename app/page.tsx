@@ -17,8 +17,8 @@ export default async function Home() {
           <p
             className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
-            <strong>Welcome to Trade Logger.</strong> Simple logging of your day
-            trading activity.
+            <strong>Welcome to TradingLogger.</strong> Simple logging of your
+            day trading activity.
           </p>
           <Link
             href="/login"

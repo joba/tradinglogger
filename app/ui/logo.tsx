@@ -6,7 +6,7 @@ export default function Logo({ size = "md" }: { size?: "md" | "lg" }) {
     <p
       className={`${lusitana.className} ${textSize} text-gray-50 md:leading-normal`}
     >
-      Trade Logger
+      TradingLogger
     </p>
   );
 }
