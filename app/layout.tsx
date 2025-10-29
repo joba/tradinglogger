@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import { inter } from "./ui/fonts";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "TradingLogger",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
