@@ -59,21 +59,23 @@ export async function createTradeLog(prevState: State, formData: FormData) {
   }
 
   const { asset, buy, comment, type } = validatedFields.data;
-  const buyInCents = (buy * 100).toFixed(3);
   const date = new Date().toISOString().split("T")[0];
-  console.log(asset, buyInCents, date, comment, type);
 
   try {
     await sql`
       INSERT INTO trades (asset, buy, date, comment, type)
-      VALUES (${asset}, ${buyInCents}, ${date}, ${comment}, ${type})
+      VALUES (${asset}, ${buy}, ${date}, ${comment}, ${type})
     `;
 
-    revalidatePath("/");
+    revalidatePath("/dashboard", "layout");
     return { message: "Trade log created successfully!", errors: {} };
   } catch (error) {
-    console.error("Database error:", error);
-    throw new Error("Failed to create trade log.");
+    return {
+      message: "Failed to create trade log.",
+      errors: {
+        buy: ["An unexpected error occurred. Please try again later."],
+      },
+    };
   }
 }
 
@@ -102,20 +104,23 @@ export async function updateTradeLog(
   }
 
   const { sell, comment } = validatedFields.data;
-  const sellInCents = (sell * 100).toFixed(3);
 
   try {
     await sql`
       UPDATE trades
-      SET sell = ${sellInCents}, comment = ${comment}
+      SET sell = ${sell}, comment = ${comment}
       WHERE id = ${id}
     `;
 
-    revalidatePath("/");
+    revalidatePath("/dashboard", "layout");
     return { message: "Trade log updated successfully!", errors: {} };
   } catch (error) {
-    console.error("Database error:", error);
-    throw new Error("Failed to update trade log.");
+    return {
+      message: "Failed to update trade log.",
+      errors: {
+        sell: ["An unexpected error occurred. Please try again later."],
+      },
+    };
   }
 }
 

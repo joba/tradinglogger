@@ -47,7 +47,7 @@ export default async function ActiveTrades() {
                     <p
                       className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
                     >
-                      {formatCurrency(trade.buy)}
+                      {trade.buy} kr
                     </p>
                   </div>
                   <UpdateForm trade={trade} />

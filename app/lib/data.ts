@@ -1,15 +1,16 @@
-import postgres from "postgres";
 import { TradeLog } from "./definitions";
-
-const sql = postgres(process.env.TRADELOGS_POSTGRES_URL!, { ssl: "require" });
+import { sql } from "./db";
 
 const ITEMS_PER_PAGE = 50;
 export async function fetchTradeLogs(query: string, currentPage: number) {
+  // Sanitize inputs
+  query = query.replace(/[%_]/g, "\\$&");
+
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const data = await sql<
       TradeLog[]
-    >`SELECT * FROM trades WHERE SELL IS NOT NULL AND asset ILIKE ${`%${query}%`} ORDER BY date DESC LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}`;
+    >`SELECT * FROM trades WHERE sell IS NOT NULL AND asset ILIKE ${`%${query}%`} ORDER BY date DESC LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}`;
     return data;
   } catch (error) {
     console.error("Error fetching trade logs:", error);

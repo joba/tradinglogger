@@ -1,12 +1,10 @@
-import postgres from "postgres";
 import { User } from "./app/lib/definitions";
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-
-const sql = postgres(process.env.TRADELOGS_POSTGRES_URL!, { ssl: "require" });
+import { sql } from "./app/lib/db";
 
 async function getUser(email: string): Promise<User | undefined> {
   console.log(email);

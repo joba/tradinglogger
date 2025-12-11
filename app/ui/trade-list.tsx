@@ -32,11 +32,9 @@ export default async function TradeList({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
+                    <p className="text-xl font-medium">{trade.buy} kr</p>
                     <p className="text-xl font-medium">
-                      {formatCurrency(trade.buy)}
-                    </p>
-                    <p className="text-xl font-medium">
-                      {trade.sell ? formatCurrency(trade.sell) : "-"}
+                      {trade.sell ? `${trade.sell} kr` : "-"}
                     </p>
 
                     <p>{formatDateToLocal(trade.date)}</p>
@@ -84,10 +82,10 @@ export default async function TradeList({
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatCurrency(trade.buy)}
+                    {trade.buy} kr
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {trade.sell ? formatCurrency(trade.sell) : "-"}
+                    {trade.sell ? `${trade.sell} kr` : "-"}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatDateToLocal(trade.date)}
