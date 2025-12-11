@@ -2,6 +2,7 @@ import { fetchTradePages } from "@/app/lib/data";
 import { lusitana } from "@/app/ui/fonts";
 import Pagination from "@/app/ui/pagination";
 import Search from "@/app/ui/search";
+import { TradeListSkeleton } from "@/app/ui/skeletons";
 import TradeList from "@/app/ui/trade-list";
 import { Suspense } from "react";
 
@@ -24,7 +25,7 @@ export default async function Page(props: {
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search assets..." />
       </div>
-      <Suspense key={query + currentPage} fallback={<p>Loading trades...</p>}>
+      <Suspense key={query + currentPage} fallback={<TradeListSkeleton />}>
         <TradeList query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">

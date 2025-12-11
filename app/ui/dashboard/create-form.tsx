@@ -92,7 +92,7 @@ export default function CreateForm() {
               maxLength={255}
             />
           </label>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" loading={loading}>
             Save
           </Button>
         </form>

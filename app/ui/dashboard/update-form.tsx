@@ -38,8 +38,8 @@ export default function UpdateForm({ trade }: { trade: TradeLog }) {
           maxLength={255}
           defaultValue={trade.comment || ""}
         />
-        <Button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update"}
+        <Button type="submit" loading={loading}>
+          Update
         </Button>
       </div>
       <div id="sell-error" aria-live="polite" className="text-red-600">
