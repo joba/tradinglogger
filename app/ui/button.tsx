@@ -3,7 +3,7 @@ import Spinner from "./spinner";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export function Button({ children, className, loading, ...rest }: ButtonProps) {
