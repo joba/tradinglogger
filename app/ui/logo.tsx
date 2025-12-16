@@ -2,7 +2,7 @@ import Image from "next/image";
 import { lusitana } from "./fonts";
 
 export default function Logo({ size = "md" }: { size?: "md" | "lg" }) {
-  const iconSize = size === "lg" ? 48 : 32;
+  const iconSize = size === "lg" ? 44 : 32;
   const textSize = size === "lg" ? "text-3xl md:text-5xl" : "text-xl";
 
   return (
